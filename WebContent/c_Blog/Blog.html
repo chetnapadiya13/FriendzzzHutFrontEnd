@@ -1,10 +1,56 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+<div ng-controller="BlogController" align="Center">
+	<div>
+		<h1>Create Blog</h1>
+		<form method="Post">
+			<table align="cente">
+				<tr>
+					<td>Blog Title</td>
+					<td><input type="text" id="blogn" name="blogName"
+						ng-model="blog.blogName"></td>
+				</tr>
+				<tr>
+					<td>Blog Content</td>
+					<td><textarea rows="3" id="blogc" name="blogContent"
+							ng-model="blog.blogContent"></textarea></td>
+				</tr>
+				<tr>
+					<td><input type="submit" value="Create Blog"
+						ng-click="insertBlog()"></td>
+					<td><input type="reset" value="Reset"></td>
+				</tr>
+			</table>
+		</form>
 
-</body>
-</html>
+	</div>
+	<div class="container">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Blog Name</th>
+					<th>Blog Content</th>
+					<th>Created On</th>
+					<th>Likes</th>
+					<th>Status</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="blog in blogData">
+					<td>{{blog.blogName}}</td>
+					<td>{{blog.blogContent}}</td>
+					<td>{{blog.createdDate}}</td>
+					<td>{{blog.Blikes}}</td>
+					<td>{{blog.status}}</td>
+					<td>
+						<button type="submit" id="btnShowBlog" data-target="#ViewBlog"
+							data-toggle="modal" ng-click="getBlog(blog.blogId)"
+							class="btn btn-default btn-sm btn-info">
+							<span class="glyphicon glyphicon-eye-open"></span> View
+						</button>
+					</td>
+				</tr>
+
+			</tbody>
+		</table>
+	</div>
+</div>
