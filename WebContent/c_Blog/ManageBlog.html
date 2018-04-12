@@ -1,10 +1,30 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+<div ng-controller="BlogController">
+	<div class="container">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Blog Name</th>
+					<th>Blog Content</th>
+					<th>Created On</th>
+					<th>Likes</th>
+					<th>Status</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="blog in blogData">
+					<td>{{blog.blogName}}</td>
+					<td>{{blog.blogContent}}</td>
+					<td>{{blog.createdDate}}</td>
+					<td>{{blog.Blikes}}</td>
+					<td>{{blog.status}}</td>
+					<td>
+						update
+					</td>
+					<td>delete</td>
+				</tr>
 
-</body>
-</html>
+			</tbody>
+		</table>
+	</div>
+</div>

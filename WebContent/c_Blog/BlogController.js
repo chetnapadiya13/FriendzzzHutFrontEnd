@@ -1,7 +1,7 @@
-app.controller("BlogController", function($scope, $http, $location, $route) {
+app.controller("BlogController", function($rootScope, $http, $location, $route) {
 	console.log("In BlogController");
 
-	$scope.blog = {
+	$rootScope.blog = {
 		"blogName" : '',
 		"blogContent" : '',
 		"createdDate" : '',
@@ -10,19 +10,19 @@ app.controller("BlogController", function($scope, $http, $location, $route) {
 		"status" : ''
 	}
 
-	$scope.blogData;
+	 $rootScope.blogData;
 
-	$scope.insertBlog = function() {
+	$rootScope.insertBlog = function() {
 		//alert("In insert blog");
 		console.log("In insertBlog method");
 		$http.post('http://localhost:8181/FriendzzzHutMiddleWare/insertBlog',
-				$scope.blog).then(fetchAllBlogs(), function(response) {
+				$rootScope.blog).then(fetchAllBlogs(), function(response) {
 					$route.reload();
 					console.log('Status Text ' + response.statusText);
 		});
 	};
 
-	$scope.deleteBlog = function(blogId){
+	$rootScope.deleteBlog = function(blogId){
 		//alert("in delete blog");
 		$http.delete('http://localhost:8181/FriendzzzHutMiddleWare/deleteBlog/'+blogId)
 		.then(fetchAllBlogs(), function(response){
@@ -33,19 +33,19 @@ app.controller("BlogController", function($scope, $http, $location, $route) {
 	};
 	
 	
-	$scope.editBlog = function(blogId){
+	$rootScope.editBlog = function(blogId){
 		//alert('In editBlog()');
 		$http.get('http://localhost:8181/FriendzzzHutMiddleWare/getBlog/'+blogId)
 		.then(function(response){
 			console.log('In edit blog');
-			$scope.blog = response.data;
+			$rootScope.blog = response.data;
 			console.log(response.data);
 			//$location.path('/updateBlog');
 		});
 
 	};
 	
-	$scope.updateBlog = function(blogId){
+	$rootScope.updateBlog = function(blogId){
 		//alert("in update blog");
 		$http.put('http://localhost:8181/FriendzzzHutMiddleWare/updateBlog/'+ blogId, $scope.blog)
 		.then(fetchAllBlogs(), function(response){
@@ -56,29 +56,26 @@ app.controller("BlogController", function($scope, $http, $location, $route) {
 		});
 		
 	};
-	$scope.getBlog = function(blogId){
+	$rootScope.getBlog = function(blogId){
 		//alert("in update blog");
-		$http.get('http://localhost:8181/FriendzzzHutMiddleWare/getBlog/'+ blogId, $scope.blog)
+		$http.get('http://localhost:8181/FriendzzzHutMiddleWare/getBlog/'+ blogId, $rootScope.blog)
 		.then(
 				function(response) {
 					console.log('Status Text ' + response.statusText);
 					console.log('fetch blog by id'+ blogId+ ' successfully');
 					$location.path('/ViewBlog');
-					$scope.blogData = response.data;
-					$route.reload();
+					$rootScope.blogData = response.data;
+					//$route.reload();
 				});
 		
 	};
-	
-	
 	function fetchAllBlogs() {
 		console.log('In fetchAllBlogs method');
 		$http.get('http://localhost:8181/FriendzzzHutMiddleWare/getBlogs').then(
 				function(response) {
 					console.log('Status Text ' + response.statusText);
-					$scope.blogData = response.data;
+					$rootScope.blogData = response.data;
 				});
 	};
-	
 	fetchAllBlogs();
 });
